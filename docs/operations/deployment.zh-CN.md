@@ -135,6 +135,10 @@ docker run --rm \
 `mcp_reader` 账号，并且只授予所需的 Doris 只读权限；除隔离的初始化环境外，
 不要替换为 `root`。
 
+如果开发机上只需要运行 Server 本身，`deploy/local/docker-compose.yml` 会用单个
+容器连接已有的 Doris，只发布在回环地址上并启用静态 Token 认证。参见
+[本地 Docker 部署](../../deploy/local/README.zh-CN.md)。
+
 容器要求：
 
 - 固定 Image/Release，不部署可变 `latest`；

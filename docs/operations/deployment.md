@@ -143,6 +143,11 @@ production credentials. Provision the default `mcp_reader` account with only
 the required Doris read privileges before starting the MCP service; do not
 replace it with `root` outside an isolated bootstrap environment.
 
+For a development machine that only needs the Server itself,
+`deploy/local/docker-compose.yml` runs one container against an existing
+Doris and publishes it on loopback with static token authentication. See
+[Local Docker deployment](../../deploy/local/README.md).
+
 Container requirements:
 
 - pin the image/release rather than deploying mutable `latest`;
