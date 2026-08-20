@@ -86,6 +86,8 @@ under the License.
 ## 开发、迁移与发布
 
 - [贡献与验证](development/contributing.zh-CN.md)
+- [设计与扩展指南](design.md) — 子系统的文件级地图，以及新增工具、领域、
+  认证方式与配置项的分步改动指引（繁体中文撰写）。
 - [迁移到 1.0](migration/1.0.0.zh-CN.md)
 - [1.0 发布说明](releases/1.0.0.zh-CN.md)
 - 兼容发布路径：[migration-1.0.0.md](migration-1.0.0.md) 与

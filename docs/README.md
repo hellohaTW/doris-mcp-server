@@ -90,6 +90,9 @@ migration, and release concerns.
 ## Development, migration, and releases
 
 - [Contributing and verification](development/contributing.md)
+- [Design and extension guide](design.md) — file-level map of the subsystems and
+  step-by-step recipes for adding tools, domains, authentication methods, and
+  settings (written in Traditional Chinese).
 - [Migrating to 1.0](migration/1.0.0.md)
 - [1.0 release notes](releases/1.0.0.md)
 - Compatibility release paths: [migration-1.0.0.md](migration-1.0.0.md) and
