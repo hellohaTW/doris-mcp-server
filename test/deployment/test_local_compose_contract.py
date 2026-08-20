@@ -72,6 +72,18 @@ def test_local_mcp_listener_is_published_on_loopback_only() -> None:
     ]
 
 
+def test_local_service_keeps_server_logs_visible() -> None:
+    """Console logging is suppressed unless stdout is a tty, and a bind-mounted
+    log directory is unwritable to the image's non-root account."""
+    service = _compose()["services"]["doris-mcp-server"]
+
+    assert service["tty"] is True
+    assert "volumes" not in service
+    assert not any(
+        entry.startswith("LOG_FILE_PATH=") for entry in service["environment"]
+    )
+
+
 def test_local_non_loopback_bind_keeps_an_authentication_boundary() -> None:
     """A 0.0.0.0 bind must never rely on the dangerous unauthenticated override."""
     environment = _compose()["services"]["doris-mcp-server"]["environment"]

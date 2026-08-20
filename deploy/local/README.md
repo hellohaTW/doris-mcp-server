@@ -94,6 +94,13 @@ docker compose logs -f     # follow logs; Ctrl+C stops following, not the contai
 `healthy` here means the Doris-backed readiness probe passed, so a healthy
 container is also proof the Doris route works.
 
+The Server decides whether to log to the console by testing whether stdout is a
+tty, and treats a non-tty stdout as stdio-transport mode where console output
+would corrupt the MCP framing. `docker compose logs` would therefore be silent,
+so this file sets `tty: true`. The same logs are also written inside the
+container under `/app/logs`:
+`docker compose exec doris-mcp-server ls /app/logs`.
+
 ## 4. Verify
 
 ```bash

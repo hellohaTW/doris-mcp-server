@@ -89,6 +89,11 @@ docker compose logs -f     # 跟踪日志；Ctrl+C 只是停止跟踪，不会�
 这里的 `healthy` 表示基于 Doris 的就绪探针通过了，所以容器健康同时也证明
 Doris 连接是通的。
 
+Server 是用「stdout 是不是 tty」来决定要不要输出到 console 的，并且把非 tty 的
+stdout 当成 stdio 传输模式（该模式下 console 输出会破坏 MCP 帧）。因此
+`docker compose logs` 默认会是空的，本文件用 `tty: true` 解决。同一份日志也会写
+在容器内的 `/app/logs`：`docker compose exec doris-mcp-server ls /app/logs`。
+
 ## 4. 验证
 
 ```bash

@@ -81,7 +81,11 @@ services:
       - QUERY_TIMEOUT=${QUERY_TIMEOUT:-300}
       - MAX_CONCURRENT_QUERIES=${MAX_CONCURRENT_QUERIES:-20}
 
-      # Logs go to stdout so `docker compose logs` is the single source.
+      # LOG_FILE_PATH is intentionally unset. Setting it to a bind-mounted host
+      # directory makes the Server exit with PermissionError, because the image
+      # runs as the non-root `doris` account and a bind mount carries the host
+      # directory's ownership. Unset, file logs stay on the image's own
+      # /app/logs, which that account owns.
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
     secrets:
       - doris_password
@@ -90,6 +94,11 @@ services:
       # Lets the container reach a Doris running on the Docker host. Docker
       # Desktop provides this name already; this entry adds it on Linux.
       - "host.docker.internal:host-gateway"
+    # Required for `docker compose logs` to show anything. The Server treats a
+    # non-tty stdout as stdio-transport mode and disables console logging
+    # entirely, so without a pseudo-tty its logs only reach files in the
+    # container.
+    tty: true
     restart: unless-stopped
     healthcheck:
       # /ready is Doris-backed: unhealthy here means the Doris route is broken,
